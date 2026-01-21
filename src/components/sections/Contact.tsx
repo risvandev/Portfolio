@@ -15,7 +15,7 @@ const Contact = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
@@ -25,56 +25,67 @@ const Contact = () => {
     const autoReplyTemplateId = import.meta.env.VITE_EMAILJS_AUTO_REPLY_TEMPLATE_ID;
     const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
-    // 1. Send notification to you (the admin)
-    const sendNotification = emailjs.send(
-      serviceId,
-      templateId,
-      {
-        from_name: formData.name,
-        from_email: formData.email,
-        message: formData.message,
-      },
-      publicKey
-    );
+    // Validation
+    if (!serviceId || !templateId || !publicKey) {
+      console.error("Missing EmailJS configuration:", { serviceId, templateId, publicKey });
+      toast({
+        title: "Configuration Error",
+        description: "EmailJS configuration is missing. Please check your .env file.",
+        variant: "destructive",
+      });
+      setIsLoading(false);
+      return;
+    }
 
-    // 2. Send auto-reply to the user (if template ID exists)
-    // Based on your screenshot, the auto-reply template uses:
-    // - {{email}} for the "To Email" field
-    // - {{from_name}} for the "Hi ..." greeting
-    const sendAutoReply = autoReplyTemplateId
-      ? emailjs.send(
+    try {
+      // 1. Send notification to you (the admin)
+      await emailjs.send(
         serviceId,
-        autoReplyTemplateId,
+        templateId,
         {
-          from_name: formData.name, // Used for "Hi {{from_name}}" in your template
-          email: formData.email,    // Used for "To Email: {{email}}" in your template
+          from_name: formData.name,
+          from_email: formData.email,
           message: formData.message,
         },
         publicKey
-      )
-      : Promise.resolve();
+      );
 
-    Promise.all([sendNotification, sendAutoReply])
-      .then(
-        () => {
-          toast({
-            title: "Message sent",
-            description: "Thank you for reaching out. A confirmation email has been sent to you.",
-          });
-          setFormData({ name: "", email: "", message: "" });
-        },
-        (error) => {
-          console.error("EmailJS Error:", error);
-          toast({
-            title: "Failed to send message",
-            description: "Please check your EmailJS configuration or try again later.",
-            variant: "destructive",
-          });
-        }
-      )
-      .finally(() => {
-        setIsLoading(false);
+      // 2. Send auto-reply to the user (if template ID exists) - Non-blocking
+      if (autoReplyTemplateId) {
+        emailjs
+          .send(
+            serviceId,
+            autoReplyTemplateId,
+            {
+              from_name: formData.name,
+              email: formData.email,
+              message: formData.message,
+            },
+            publicKey
+          )
+          .catch((err) => console.warn("Auto-reply failed:", err));
+      }
+
+      toast({
+        title: "Message sent",
+        description: "Thank you for reaching out. We'll get back to you shortly.",
       });
+      setFormData({ name: "", email: "", message: "" });
+    } catch (error) {
+      console.error("EmailJS Error:", error);
+      const errorMessage = error instanceof Error ? error.message : "Unknown error";
+      // EmailJS specific error object often has a 'text' property
+      const emailJsError = error as { text?: string };
+      const displayMessage = emailJsError.text || errorMessage || "Please check your configuration or try again later.";
+
+      toast({
+        title: "Failed to send message",
+        description: `Error: ${displayMessage}`,
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const socialLinks = [
