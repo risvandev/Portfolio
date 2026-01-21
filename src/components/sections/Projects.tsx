@@ -2,33 +2,37 @@ import { ExternalLink, Github } from "lucide-react";
 import ScrollReveal from "../ScrollReveal";
 import { motion } from "framer-motion";
 
+
 interface Project {
   title: string;
   description: string;
   tags: string[];
   liveUrl?: string;
   githubUrl?: string;
+  openInNewTab?: boolean;
 }
 
 const projects: Project[] = [
   {
-    title: "Network Scanner",
-    description: "A lightweight tool for analyzing network traffic patterns and identifying potential vulnerabilities in local networks.",
-    tags: ["Python", "Security", "Networking"],
-    githubUrl: "#",
+    title: "Lebrinex - Modern Library Management",
+    description: "Lebrinex is a modern library management system built to explore and streamline core library workflows through a clean, intuitive web interface.",
+    tags: ["Web Application", "React", "Vite", "Authentication", "UI/UX", "Frontend Development"],
+    liveUrl: "https://lebrinex.vercel.app/",
+    openInNewTab: true
   },
   {
-    title: "Secure Notes",
-    description: "End-to-end encrypted note-taking application with zero-knowledge architecture. Your data stays yours.",
-    tags: ["React", "Encryption", "TypeScript"],
-    liveUrl: "#",
-    githubUrl: "#",
+    title: "TilawaNow — Quran Reading & Recitation Platform",
+    description: "TilawaNow is a Qur’an learning platform that brings recitation, meanings, and contextual understanding together in a clean, focused web experience.",
+    tags: ["Web Application", "React", "Vite", "PWA", "Audio Playback", "AI Integration"],
+    liveUrl: "https://tilawanow.vercel.app/",
+    openInNewTab: true
   },
   {
     title: "Auth Flow",
     description: "Authentication library implementing modern security practices including PKCE, token rotation, and secure storage.",
     tags: ["Node.js", "OAuth", "Security"],
     githubUrl: "#",
+    openInNewTab: true
   },
 ];
 

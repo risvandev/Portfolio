@@ -20,24 +20,25 @@ const About = () => {
           <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
             <ScrollReveal delay={0.2}>
               <p>
-                I'm a student with a genuine curiosity for understanding how systems work—and 
-                more importantly, how they can be made more secure and resilient. My interest 
-                lies at the intersection of cybersecurity and software development.
+                I’m Muhammed Risvan, a higher secondary student and self-taught learner with a long-standing curiosity about how systems work — and how they can be made more secure and reliable. My interest lies at the intersection of cybersecurity and software development, where understanding structure matters as much as writing code.
               </p>
             </ScrollReveal>
 
             <ScrollReveal delay={0.3}>
               <p>
-                Rather than chasing trends, I focus on building a solid foundation. I believe 
-                in learning by doing: writing code, breaking things, understanding why they 
-                broke, and then building them back stronger.
+                My curiosity around hacking started early. Once I had access to a computer, I naturally gravitated toward exploring how things worked beneath the surface. Stories and work from people like Jonathan James, Michael Calce, and Ryan Montgomery shaped my perspective early on — not as shortcuts, but as reminders that curiosity, when guided well, can become a discipline.
               </p>
             </ScrollReveal>
 
             <ScrollReveal delay={0.4}>
               <p className="text-foreground/80">
-                Currently exploring network security, secure application development, and the 
-                fundamentals that make software both functional and trustworthy.
+                Rather than chasing trends, I focus on building a solid foundation. I learn by doing: creating applications, experimenting in controlled environments, working with vulnerable virtual machines, and understanding why systems behave the way they do. Building real projects helps me think clearly about security, structure, and long-term reliability.
+              </p>
+            </ScrollReveal>
+
+            <ScrollReveal delay={0.5}>
+              <p className="text-foreground/80">
+                Currently, I’m deepening my understanding of cybersecurity fundamentals while actively developing real-world applications. My goal is to grow steadily, combining hands-on development with a security-first mindset, and to build systems that are not just functional — but trustworthy.
               </p>
             </ScrollReveal>
           </div>
