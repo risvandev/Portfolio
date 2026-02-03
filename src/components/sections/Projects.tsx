@@ -3,38 +3,9 @@ import ScrollReveal from "../ScrollReveal";
 import { motion } from "framer-motion";
 
 
-interface Project {
-  title: string;
-  description: string;
-  tags: string[];
-  liveUrl?: string;
-  githubUrl?: string;
-  openInNewTab?: boolean;
-}
-
-const projects: Project[] = [
-  {
-    title: "Lebrinex - Modern Library Management",
-    description: "Lebrinex is a modern library management system built to explore and streamline core library workflows through a clean, intuitive web interface.",
-    tags: ["Web Application", "React", "Vite", "Authentication", "UI/UX", "Frontend Development"],
-    liveUrl: "https://lebrinex.vercel.app/",
-    openInNewTab: true
-  },
-  {
-    title: "TilawaNow — Quran Reading & Recitation Platform",
-    description: "TilawaNow is a Qur’an learning platform that brings recitation, meanings, and contextual understanding together in a clean, focused web experience.",
-    tags: ["Web Application", "React", "Vite", "PWA", "Audio Playback", "AI Integration"],
-    liveUrl: "https://tilawanow.vercel.app/",
-    openInNewTab: true
-  },
-  {
-    title: "Auth Flow",
-    description: "Authentication library implementing modern security practices including PKCE, token rotation, and secure storage.",
-    tags: ["Node.js", "OAuth", "Security"],
-    githubUrl: "#",
-    openInNewTab: true
-  },
-];
+import { projects, Project } from "@/data/projects";
+import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const ProjectCard = ({ project, index }: { project: Project; index: number }) => {
   return (
@@ -120,9 +91,19 @@ const Projects = () => {
           </ScrollReveal>
 
           <div className="grid gap-6">
-            {projects.map((project, index) => (
+            {projects.slice(0, 3).map((project, index) => (
               <ProjectCard key={project.title} project={project} index={index} />
             ))}
+
+            <ScrollReveal delay={0.4}>
+              <Link to="/projects" className="group relative h-full min-h-[200px] flex flex-col items-center justify-center p-6 md:p-8 rounded-2xl bg-card/30 border border-border/30 hover:border-primary/50 hover:bg-surface/50 transition-all duration-500 text-center">
+                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
+                  <ArrowRight className="w-8 h-8 text-primary group-hover:translate-x-1 transition-transform duration-300" />
+                </div>
+                <h3 className="text-xl font-medium text-foreground mb-2">See All Projects</h3>
+                <p className="text-muted-foreground text-sm">View the complete archive of my work</p>
+              </Link>
+            </ScrollReveal>
           </div>
         </div>
       </div>

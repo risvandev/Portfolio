@@ -41,7 +41,7 @@ const Skills = () => {
             </p>
           </ScrollReveal>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
             {skills.map((skill, index) => (
               <ScrollReveal key={skill.label} delay={0.1 + index * 0.05}>
                 <div className="group flex items-center gap-4 p-5 rounded-xl bg-card/30 border border-border/30 hover:border-border/60 hover:bg-surface/50 transition-all duration-400">
