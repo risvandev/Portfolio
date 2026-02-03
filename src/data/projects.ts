@@ -13,7 +13,7 @@ export const projects: Project[] = [
         title: "Growrin - All-in-One Financial Calculator",
         description: "A comprehensive financial tool designed to simplify complex calculations for investment, savings, and loan planning.",
         tags: ["Finance", "Web App", "Calculator", "React", "Utility"],
-        liveUrl: "#",
+        liveUrl: "https://growrin.vercel.app/",
         openInNewTab: true
     },
     {
