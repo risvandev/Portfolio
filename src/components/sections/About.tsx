@@ -1,51 +1,52 @@
 import ScrollReveal from "../ScrollReveal";
 
-const About = () => {
-  return (
-    <section id="about" className="py-32 relative">
-      <div className="container px-6 md:px-8">
-        <div className="max-w-3xl mx-auto">
-          <ScrollReveal>
-            <span className="inline-block text-sm font-mono text-primary/80 tracking-wider uppercase mb-4">
-              About
-            </span>
-          </ScrollReveal>
+const About = () => (
+  <section id="about" className="py-28 relative">
+    <div className="container px-6 md:px-8">
+      <div className="max-w-4xl mx-auto">
+        <ScrollReveal>
+          <span className="inline-block text-sm font-mono text-primary/80 tracking-wider uppercase mb-4">About</span>
+        </ScrollReveal>
+        <ScrollReveal delay={0.1}>
+          <h2 className="text-3xl md:text-4xl font-medium tracking-tight mb-8">Learning by building.</h2>
+        </ScrollReveal>
 
-          <ScrollReveal delay={0.1}>
-            <h2 className="text-3xl md:text-4xl font-medium tracking-tight mb-8">
-              Building with intention
-            </h2>
-          </ScrollReveal>
-
-          <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
+        <div className="grid md:grid-cols-[1.25fr_0.75fr] gap-10 md:gap-16">
+          <div className="space-y-5 text-lg text-muted-foreground leading-relaxed">
             <ScrollReveal delay={0.2}>
-              <p>
-                I’m Muhammed Risvan, a higher secondary student and self-taught learner with a long-standing curiosity about how systems work — and how they can be made more secure and reliable. My interest lies at the intersection of cybersecurity and software development, where understanding structure matters as much as writing code.
-              </p>
+              <p>I’m Muhammed Risvan, a Computer Science & Engineering student at Albertian Institute of Science and Technology in Kochi. I enjoy understanding how software works beneath the surface and turning ideas into working applications.</p>
             </ScrollReveal>
-
             <ScrollReveal delay={0.3}>
-              <p>
-                My curiosity around hacking started early. Once I had access to a computer, I naturally gravitated toward exploring how things worked beneath the surface. Stories and work from people like Jonathan James, Michael Calce, and Ryan Montgomery shaped my perspective early on — not as shortcuts, but as reminders that curiosity, when guided well, can become a discipline.
-              </p>
+              <p>I’m currently building my foundation in Python, C++, data structures, algorithms, Linux, databases, and software engineering. I learn fastest through practical projects, experimentation, and repeatedly improving systems I have already built.</p>
             </ScrollReveal>
-
             <ScrollReveal delay={0.4}>
-              <p className="text-foreground/80">
-                Rather than chasing trends, I focus on building a solid foundation. I learn by doing: creating applications, experimenting in controlled environments, working with vulnerable virtual machines, and understanding why systems behave the way they do. Building real projects helps me think clearly about security, structure, and long-term reliability.
-              </p>
-            </ScrollReveal>
-
-            <ScrollReveal delay={0.5}>
-              <p className="text-foreground/80">
-                Currently, I’m deepening my understanding of cybersecurity fundamentals while actively developing real-world applications. My goal is to grow steadily, combining hands-on development with a security-first mindset, and to build systems that are not just functional — but trustworthy.
-              </p>
+              <p>My main public project is <span className="text-foreground">MNDO</span>, an open-source privacy-focused decentralized messaging application. Alongside software development, I continue exploring cybersecurity, automation, web technologies, and AI-assisted development.</p>
             </ScrollReveal>
           </div>
+
+          <ScrollReveal delay={0.25}>
+            <div className="rounded-2xl border border-border/50 bg-card/40 p-6 h-fit">
+              <p className="text-sm font-mono text-primary/80 uppercase tracking-wider mb-5">Current focus</p>
+              <div className="space-y-4">
+                {[
+                  ["01", "Python & DSA"],
+                  ["02", "Software Development"],
+                  ["03", "Linux & Systems"],
+                  ["04", "Cybersecurity Fundamentals"],
+                  ["05", "AI & Automation"],
+                ].map(([n, label]) => (
+                  <div key={n} className="flex items-center gap-4">
+                    <span className="font-mono text-xs text-muted-foreground">{n}</span>
+                    <span className="text-sm text-foreground/85">{label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </ScrollReveal>
         </div>
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
 
 export default About;
