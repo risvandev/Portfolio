@@ -1,18 +1,100 @@
-import { Github, Linkedin, Mail, MapPin, Send } from "lucide-react";
+import { Check, Copy, Github, Linkedin, Mail, MapPin } from "lucide-react";
 import ScrollReveal from "../ScrollReveal";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
-import { Textarea } from "../ui/textarea";
 import { useState } from "react";
-import { toast } from "@/hooks/use-toast";
-import emailjs from "@emailjs/browser";
 
-const Contact=()=>{
- const [formData,setFormData]=useState({name:"",email:"",message:""}); const [isLoading,setIsLoading]=useState(false);
- const handleSubmit=async(e:React.FormEvent)=>{e.preventDefault();setIsLoading(true);const serviceId=import.meta.env.VITE_EMAILJS_SERVICE_ID,templateId=import.meta.env.VITE_EMAILJS_TEMPLATE_ID,autoReplyTemplateId=import.meta.env.VITE_EMAILJS_AUTO_REPLY_TEMPLATE_ID,publicKey=import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
- if(!serviceId||!templateId||!publicKey){toast({title:"Contact form unavailable",description:"Please email me directly at risvandev@gmail.com.",variant:"destructive"});setIsLoading(false);return;}
- try{await emailjs.send(serviceId,templateId,{from_name:formData.name,from_email:formData.email,message:formData.message},publicKey);if(autoReplyTemplateId)emailjs.send(serviceId,autoReplyTemplateId,{from_name:formData.name,email:formData.email,message:formData.message},publicKey).catch(()=>undefined);toast({title:"Message sent",description:"Thanks for reaching out. I’ll get back to you."});setFormData({name:"",email:"",message:""});}catch{toast({title:"Could not send message",description:"Please email me directly at risvandev@gmail.com.",variant:"destructive"});}finally{setIsLoading(false);}};
- const links=[{icon:Mail,label:"risvandev@gmail.com",href:"mailto:risvandev@gmail.com"},{icon:Github,label:"GitHub",href:"https://github.com/risvandev"},{icon:Linkedin,label:"LinkedIn",href:"https://www.linkedin.com/in/muhammedrisvan"}];
- return <section id="contact" className="py-28 relative"><div className="container px-6 md:px-8"><div className="max-w-4xl mx-auto"><ScrollReveal><span className="inline-block text-sm font-mono text-primary/80 tracking-wider uppercase mb-4">Contact</span></ScrollReveal><ScrollReveal delay={0.1}><h2 className="text-3xl md:text-4xl font-medium tracking-tight mb-4">Open to opportunities.</h2></ScrollReveal><ScrollReveal delay={0.15}><p className="text-muted-foreground text-lg mb-10 max-w-2xl">I’m currently based in Kochi and looking for software development, Python, and CSE internship opportunities alongside my degree.</p></ScrollReveal><ScrollReveal delay={0.2}><div className="flex flex-wrap gap-3 mb-12">{links.map(link=>{const Icon=link.icon;return <a key={link.label} href={link.href} target={link.href.startsWith("http")?"_blank":undefined} rel="noreferrer" className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-card/50 border border-border/50 text-muted-foreground hover:text-foreground hover:border-border transition-all"><Icon className="w-4 h-4"/><span className="text-sm">{link.label}</span></a>})}<span className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-card/30 border border-border/30 text-muted-foreground"><MapPin className="w-4 h-4"/>Kochi, Kerala</span></div></ScrollReveal><ScrollReveal delay={0.25}><form onSubmit={handleSubmit} className="space-y-6"><div className="grid md:grid-cols-2 gap-6"><div><label htmlFor="name" className="block text-sm font-medium text-foreground/80 mb-2">Name</label><Input id="name" value={formData.name} onChange={e=>setFormData({...formData,name:e.target.value})} placeholder="Your name" required disabled={isLoading} className="bg-card/50 border-border/50"/></div><div><label htmlFor="email" className="block text-sm font-medium text-foreground/80 mb-2">Email</label><Input id="email" type="email" value={formData.email} onChange={e=>setFormData({...formData,email:e.target.value})} placeholder="you@example.com" required disabled={isLoading} className="bg-card/50 border-border/50"/></div></div><div><label htmlFor="message" className="block text-sm font-medium text-foreground/80 mb-2">Message</label><Textarea id="message" value={formData.message} onChange={e=>setFormData({...formData,message:e.target.value})} placeholder="What would you like to discuss?" required disabled={isLoading} rows={5} className="bg-card/50 border-border/50 resize-none"/></div><Button type="submit" disabled={isLoading}>{isLoading?"Sending...":"Send message"}<Send/></Button></form></ScrollReveal></div></div></section>;
+const EMAIL = "risvandev@gmail.com";
+
+const Contact = () => {
+  const [copied, setCopied] = useState(false);
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(EMAIL);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1600);
+    } catch {
+      setCopied(false);
+    }
+  };
+
+  return (
+    <section id="contact" className="py-28 relative">
+      <div className="container px-6 md:px-8">
+        <div className="max-w-4xl mx-auto">
+          <ScrollReveal>
+            <span className="inline-block text-sm font-mono text-primary/80 tracking-wider uppercase mb-4">
+              Contact
+            </span>
+          </ScrollReveal>
+
+          <ScrollReveal delay={0.1}>
+            <h2 className="text-3xl md:text-4xl font-medium tracking-tight mb-4">
+              Open to opportunities.
+            </h2>
+          </ScrollReveal>
+
+          <ScrollReveal delay={0.15}>
+            <p className="text-muted-foreground text-lg max-w-2xl">
+              I’m currently based in Kochi and looking for software development,
+              Python, and CSE internship opportunities alongside my degree.
+            </p>
+          </ScrollReveal>
+
+          <ScrollReveal delay={0.25}>
+            <div className="mt-10 pt-8 border-t border-border/40">
+              <p className="text-sm font-mono uppercase tracking-wider text-primary/80 mb-4">
+                Email
+              </p>
+
+              <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+                <a
+                  href={`mailto:${EMAIL}`}
+                  className="text-2xl md:text-3xl font-medium tracking-tight text-foreground hover:text-primary transition-colors break-all"
+                >
+                  {EMAIL}
+                </a>
+
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={copyEmail}
+                    className="inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-muted-foreground border border-border/40 hover:text-foreground hover:border-border transition-colors"
+                    aria-label="Copy email address"
+                  >
+                    {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                    {copied ? "Copied" : "Copy"}
+                  </button>
+
+                  <a
+                    href={`mailto:${EMAIL}`}
+                    className="inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
+                  >
+                    <Mail className="w-4 h-4" />
+                    Mail
+                  </a>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-x-6 gap-y-3 mt-7 text-sm text-muted-foreground">
+                <a href="https://github.com/risvandev" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:text-foreground transition-colors">
+                  <Github className="w-4 h-4" />
+                  GitHub
+                </a>
+                <a href="https://www.linkedin.com/in/muhammedrisvan" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:text-foreground transition-colors">
+                  <Linkedin className="w-4 h-4" />
+                  LinkedIn
+                </a>
+                <span className="inline-flex items-center gap-2">
+                  <MapPin className="w-4 h-4" />
+                  Kochi, Kerala
+                </span>
+              </div>
+            </div>
+          </ScrollReveal>
+        </div>
+      </div>
+    </section>
+  );
 };
+
 export default Contact;
